@@ -1,0 +1,19 @@
+{% include 'task/base.html' %}
+
+{% block content %}
+<h1>안녕하세요</h1>
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.title }}
+        </li>
+    {% endfor %}
+</ul>
+
+<form action="{% url 'task.add' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">등록</button>
+</form>
+{% endblock content %}
