@@ -1,7 +1,11 @@
 {% include 'task/base.html' %}
 
+{% block header_title %}
+<title>{{ _('Welcome') }}</title>
+{% endblock header_title %}
+
 {% block content %}
-<h1>안녕하세요</h1>
+<h1>{{ _('Welcome') }}</h1>
 
 <ul>
     {% for task in tasks %}
@@ -14,6 +18,6 @@
 <form action="{% url 'task.add' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">등록</button>
+    <button type="submit">{{ _('Submit') }}</button>
 </form>
 {% endblock content %}

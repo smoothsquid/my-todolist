@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from task.forms import SimpleTaskForm
 from task.models import Task
+from django.utils.translation import ugettext_lazy as _
 
 @login_required
 def index(request):
     form = SimpleTaskForm()
     # TODO: 순서를 정하고 정렬하여 보여줘야함
     tasks = Task.objects.all()
-    return render(request, 'task/index.html', {'title': '안녕하세요', 'form': form, 'tasks': tasks, })
+    return render(request, 'task/index.html', {'title': _('Welcome'), 'form': form, 'tasks': tasks, })
 
 @login_required
 def add(request):

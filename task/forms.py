@@ -1,8 +1,14 @@
-from django import forms
+from django.forms import ModelForm, TextInput
 from task.models import Task
 
-class SimpleTaskForm(forms.ModelForm):
+class SimpleTaskForm(ModelForm):
 
     class Meta:
         model = Task
-        fields = ['title',]
+        fields = ('title',)
+        widgets = {
+            'title': TextInput(attrs={'placeholder': '할일'})
+        }
+        labels = {
+            'title': ''
+        }
