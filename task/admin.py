@@ -1,6 +1,7 @@
 from django.contrib import admin
 from task.models import Task
 
+@admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     readonly_fields = ['pk', 'created']
     fieldsets = [
@@ -13,4 +14,4 @@ class TaskAdmin(admin.ModelAdmin):
     search_fields = ['title', 'author',]
     list_filter = ['created',]
 
-admin.site.register(Task, TaskAdmin)
+# admin.site.register(Task, TaskAdmin)

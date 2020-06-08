@@ -6,18 +6,48 @@
 
 {% block content %}
 <h1>{{ _('Welcome') }}</h1>
-
-<ul>
+<ul id="sortable" class="todo-list">
     {% for task in tasks %}
-        <li>
-            {{ task.title }}
-        </li>
+    <li>
+        <div order="task.order">
+        {{ task.title }}
+        <a href="{% url 'task:delete' task.id %}">{{ _('Delete') }}</a>
+        {% if task.is_done is not True %}
+        <a href="{% url 'task:done' task.id %}">{{ _('Done') }}</a>
+        {% else %}
+        <a href="{% url 'task:incomplete' task.id %}">{{ _('In') }}</a>
+        {% endif %}
+        </div>
+    </li>
     {% endfor %}
 </ul>
 
-<form action="{% url 'task.add' %}" method="post">
+<form action="{% url 'task:add' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">{{ _('Submit') }}</button>
+
+<script>
+  $( function() {
+    $( "#sortable" ).sortable({
+        change: function(e, u) {
+            console.log('chango');
+        },
+        stop: function(e, u) {
+            console.log('stop');
+        },
+        start: function(e, u) {
+            console.log('start');
+        },
+        update: function(e, u) {
+            console.log('update');
+            console.log(u.item);
+            console.log(u.position);
+            console.log(u.item.);
+        }
+    });
+    $( "#sortable" ).disableSelection();
+  } );
+  </script>
 </form>
 {% endblock content %}

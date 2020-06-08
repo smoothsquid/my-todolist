@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from task.forms import SimpleTaskForm
 from task.models import Task
 from django.utils.translation import ugettext_lazy as _
@@ -19,11 +19,27 @@ def add(request):
             task = form.save(commit=False)
             task.author = request.user
             task.save()
-        return redirect('task.index')
+        return redirect('task:index')
     else:
         pass
     return None
 
 @login_required
-def done(request):
-    pass
+def done(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_done = True
+    task.save()
+    return redirect('task:index')
+
+@login_required
+def delete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.delete()
+    return redirect('task:index')
+
+@login_required
+def incomplete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_done = False
+    task.save()
+    return redirect('task:index')
