@@ -249,3 +249,4 @@ GitHub.sublime-settings
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,python,django,sublimetext,git
+.vscode/settings.json
